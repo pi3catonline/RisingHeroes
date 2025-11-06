@@ -7,7 +7,8 @@ import net.minecraft.util.registry.Registry;
 
 public class ModItems {
     // Creative Tab - using ItemGroup directly (compatible with Fabric 1.19.2)
-    public static final ItemGroup RISING_HEROES_TAB = new ItemGroup("rising_heroes") {
+    // Index should be higher than existing groups (default groups go up to ~12)
+    public static final ItemGroup RISING_HEROES_TAB = new ItemGroup(13, "rising_heroes") {
         @Override
         public ItemStack createIcon() {
             return new ItemStack(Items.DIAMOND_SWORD); // Temporary icon, will be updated after items are registered
@@ -43,10 +44,6 @@ public class ModItems {
     
     public static void registerModItems() {
         RisingHeroes.LOGGER.info("Registering Mod Items for " + RisingHeroes.MOD_ID);
-        
-        // Register creative tab
-        Registry.register(Registry.ITEM_GROUP, 
-            new Identifier(RisingHeroes.MOD_ID, "rising_heroes"), 
-            RISING_HEROES_TAB);
+        // ItemGroup is automatically registered when created, no manual registration needed
     }
 }
