@@ -1,0 +1,51 @@
+# Gradle
+.gradle/
+build/
+bin/
+.gradle-wrapper/
+
+# IDE
+.idea/
+*.iml
+*.iws
+*.ipr
+.vscode/
+.settings/
+.classpath
+.project
+
+# Eclipse
+.settings/
+.metadata/
+bin/
+tmp/
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+.loadpath
+.recommenders
+
+# IntelliJ IDEA
+*.iml
+.idea/
+out/
+*.iws
+*.ipr
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Minecraft/Fabric
+run/
+logs/
+*.log
+
+# Temporary files
+*.tmp
+*.temp
+*.cache
+

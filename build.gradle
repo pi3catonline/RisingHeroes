@@ -3,6 +3,12 @@ plugins {
     id 'maven-publish'
 }
 
+// Check Java version before applying plugins
+def javaVersion = JavaVersion.current()
+if (javaVersion < JavaVersion.VERSION_17) {
+    throw new GradleException("Java 17 or higher is required. Currently using Java ${javaVersion}. Please install Java 17 or higher.")
+}
+
 version = project.mod_version
 group = project.maven_group
 
@@ -46,12 +52,13 @@ tasks.withType(JavaCompile).configureEach {
 }
 
 java {
-    def javaVersion = JavaVersion.toVersion(targetJavaVersion)
-    sourceCompatibility = javaVersion
-    targetCompatibility = javaVersion
-    if (JavaVersion.current() < javaVersion) {
-        toolchain.languageVersion = JavaToolchainSpec::languageVersion
-        toolchain.languageVersion.set(JavaLanguageVersion.of(targetJavaVersion))
+    def targetJavaVer = JavaVersion.toVersion(targetJavaVersion)
+    sourceCompatibility = targetJavaVer
+    targetCompatibility = targetJavaVer
+    if (JavaVersion.current() < targetJavaVer) {
+        toolchain {
+            languageVersion = JavaLanguageVersion.of(targetJavaVersion)
+        }
     }
     archivesBaseName = project.archives_base_name
     // Loom will automatically attach sourcesJar to a RemapSourcesJar task and to the "build" task

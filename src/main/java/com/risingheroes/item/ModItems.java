@@ -1,18 +1,26 @@
 package com.risingheroes.item;
 
 import com.risingheroes.RisingHeroes;
-import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.minecraft.item.*;
-import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
 public class ModItems {
-    // Creative Tab - icon will be set after items are registered
-    public static final ItemGroup RISING_HEROES_TAB = FabricItemGroup.builder()
-        .icon(() -> new ItemStack(Items.DIAMOND_SWORD))
-        .displayName(Text.translatable("itemGroup.risingheroes.rising_heroes"))
-        .build();
+    // Creative Tab - using ItemGroup directly (compatible with Fabric 1.19.2)
+    public static final ItemGroup RISING_HEROES_TAB = new ItemGroup("rising_heroes") {
+        @Override
+        public ItemStack createIcon() {
+            return new ItemStack(Items.DIAMOND_SWORD); // Temporary icon, will be updated after items are registered
+        }
+        
+        @Override
+        public void appendStacks(net.minecraft.util.collection.DefaultedList<ItemStack> stacks) {
+            stacks.add(new ItemStack(CARDINAL_SWORD));
+            stacks.add(new ItemStack(CARDINAL_SPEAR));
+            stacks.add(new ItemStack(CARDINAL_BOW));
+            stacks.add(new ItemStack(CARDINAL_SHIELD));
+        }
+    };
     
     // Register items
     public static final Item CARDINAL_SWORD = registerItem("cardinal_sword",
@@ -42,4 +50,3 @@ public class ModItems {
             RISING_HEROES_TAB);
     }
 }
-
